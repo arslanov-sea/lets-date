@@ -1,8 +1,7 @@
 const DEVICE_ID_KEY = "lets-date:device-id";
 const SESSION_KEY = "lets-date:session";
 
-// Filled in once the Telegram relay (Cloudflare Worker) is deployed.
-const REPORT_URL = "";
+const REPORT_URL = "https://lets-date-worker.arslanov-sea.workers.dev";
 
 let navigatingForward = false;
 
