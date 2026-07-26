@@ -1,10 +1,10 @@
 :root {
-  --color-bg: #fff5f7;
-  --color-text: #33202a;
-  --color-primary: #ff5c8a;
-  --color-primary-dark: #e6406f;
+  --color-bg: #f2f6ee;
+  --color-text: #33402f;
+  --color-primary: #8fac83;
+  --color-primary-dark: #758f6b;
   --color-surface: #ffffff;
-  --color-border: #f3c6d3;
+  --color-border: #d9e3d1;
   --radius: 16px;
 }
 
@@ -85,16 +85,6 @@ body {
   user-select: none;
   white-space: nowrap;
   transition: left 0.2s ease, top 0.2s ease, transform 0.2s ease;
-}
-
-.btn-no.wiggle {
-  animation: wiggle 0.3s ease;
-}
-
-@keyframes wiggle {
-  0%, 100% { rotate: 0deg; }
-  25% { rotate: -8deg; }
-  75% { rotate: 8deg; }
 }
 
 .field {

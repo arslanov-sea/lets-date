@@ -2,14 +2,12 @@ const noBtn = document.getElementById("btn-no");
 const dodgeContainer = document.querySelector(".button-row");
 const yesBtn = document.getElementById("btn-yes");
 
-const dodgePhrases = ["Нет", "Точно?", "Серьёзно?", "Не сюда!", "А если да?", "Почти поймала"];
 const DODGE_RADIUS = 90;
 const RETRIGGER_DELAY_MS = 250;
 const CORNER_MARGIN = 12;
 const CORNER_JITTER = 16;
 const BUTTON_GAP = 16;
 
-let lastEffectIndex = -1;
 let isDodging = false;
 
 function setNoButtonPosition(left, top) {
@@ -62,46 +60,9 @@ function pickRandomPosition() {
   };
 }
 
-function dodgeTeleport() {
+function triggerDodge() {
   const { left, top } = pickRandomPosition();
   setNoButtonPosition(left, top);
-}
-
-function dodgeShrinkGrow() {
-  noBtn.style.transform = "scale(0.7)";
-  dodgeTeleport();
-  setTimeout(() => {
-    noBtn.style.transform = "scale(1)";
-  }, 200);
-}
-
-function dodgeWiggle() {
-  noBtn.classList.add("wiggle");
-  dodgeTeleport();
-  setTimeout(() => {
-    noBtn.classList.remove("wiggle");
-  }, 300);
-}
-
-function dodgeTextSwap() {
-  const original = noBtn.textContent;
-  const phrase = dodgePhrases[Math.floor(Math.random() * dodgePhrases.length)];
-  noBtn.textContent = phrase;
-  dodgeTeleport();
-  setTimeout(() => {
-    noBtn.textContent = original;
-  }, 900);
-}
-
-const dodgeEffects = [dodgeTeleport, dodgeShrinkGrow, dodgeWiggle, dodgeTextSwap];
-
-function triggerDodge() {
-  let index = Math.floor(Math.random() * dodgeEffects.length);
-  if (index === lastEffectIndex) {
-    index = (index + 1) % dodgeEffects.length;
-  }
-  lastEffectIndex = index;
-  dodgeEffects[index]();
 }
 
 function handlePointerMove(event) {
