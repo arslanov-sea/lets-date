@@ -67,6 +67,10 @@ function triggerDodge() {
 }
 
 function handlePointerMove(event) {
+  if (event.pointerType === "touch") {
+    return;
+  }
+
   const rect = noBtn.getBoundingClientRect();
   const centerX = rect.left + rect.width / 2;
   const centerY = rect.top + rect.height / 2;
