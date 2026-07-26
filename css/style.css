@@ -81,7 +81,18 @@ body {
   background: var(--color-surface);
   color: var(--color-text);
   border: 2px solid var(--color-border);
-  position: relative;
+  transition: left 0.2s ease, top 0.2s ease, transform 0.2s ease;
+  white-space: nowrap;
+}
+
+.btn-no.wiggle {
+  animation: wiggle 0.3s ease;
+}
+
+@keyframes wiggle {
+  0%, 100% { rotate: 0deg; }
+  25% { rotate: -8deg; }
+  75% { rotate: 8deg; }
 }
 
 .field {
