@@ -2,46 +2,26 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
   <title>Свидание?</title>
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
   <main class="app">
-    <section class="screen" id="screen-ask" data-screen="ask">
+    <section class="screen">
       <h1 class="question">Пойдёшь со мной на свидание?</h1>
       <div class="button-row">
         <button class="btn btn-yes" id="btn-yes" type="button">Да</button>
         <button class="btn btn-no" id="btn-no" type="button">Нет</button>
       </div>
     </section>
-
-    <section class="screen" id="screen-details" data-screen="details" hidden>
-      <h1 class="question">Когда?</h1>
-
-      <div class="field">
-        <h2 class="field-label">Дата</h2>
-        <div class="option-grid" id="date-options"></div>
-      </div>
-
-      <div class="field">
-        <h2 class="field-label">Время</h2>
-        <div class="option-grid" id="time-options"></div>
-      </div>
-
-      <button class="btn btn-confirm" id="btn-confirm" type="button" disabled>Подтвердить</button>
-    </section>
-
-    <section class="screen" id="screen-celebrate" data-screen="celebrate" hidden>
-      <h1 class="question">Ура! До встречи 🎉</h1>
-      <p class="summary" id="summary"></p>
-      <canvas id="confetti-canvas"></canvas>
-    </section>
   </main>
 
   <script src="js/dodge.js"></script>
-  <script src="js/details.js"></script>
-  <script src="js/confetti.js"></script>
-  <script src="js/script.js"></script>
+  <script>
+    document.getElementById("btn-yes").addEventListener("click", () => {
+      window.location.href = "date.html";
+    });
+  </script>
 </body>
 </html>

@@ -85,9 +85,12 @@ function updateConfirmState() {
   confirmBtn.disabled = !(selectedDate && selectedTime);
 }
 
-function getSelectedDetails() {
-  return { date: selectedDate, time: selectedTime };
-}
+const STORAGE_KEY = "lets-date:selection";
+
+confirmBtn.addEventListener("click", () => {
+  sessionStorage.setItem(STORAGE_KEY, JSON.stringify({ date: selectedDate, time: selectedTime }));
+  window.location.href = "celebrate.html";
+});
 
 buildDateOptions();
 buildTimeOptions();
