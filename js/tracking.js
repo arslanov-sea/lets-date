@@ -58,16 +58,12 @@ function sendReport(state) {
     time: state.time,
   });
 
-  if (navigator.sendBeacon) {
-    navigator.sendBeacon(REPORT_URL, new Blob([payload], { type: "application/json" }));
-  } else {
-    fetch(REPORT_URL, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: payload,
-      keepalive: true,
-    });
-  }
+  fetch(REPORT_URL, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: payload,
+    keepalive: true,
+  });
 
   state.sent = true;
   writeSessionState(state);
