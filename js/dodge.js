@@ -7,9 +7,6 @@ const RETRIGGER_DELAY_MS = 250;
 const CORNER_MARGIN = 12;
 const CORNER_JITTER = 16;
 const BUTTON_GAP = 16;
-const SHRINK_STEP = 0.08;
-const MIN_SCALE = 0.35;
-const VANISH_AFTER_ATTEMPTS = 8;
 
 let isDodging = false;
 
@@ -64,17 +61,9 @@ function pickRandomPosition() {
 }
 
 function triggerDodge() {
-  const attempts = recordNoAttempt();
+  recordNoAttempt();
   const { left, top } = pickRandomPosition();
   setNoButtonPosition(left, top);
-
-  const scale = Math.max(1 - attempts * SHRINK_STEP, MIN_SCALE);
-  noBtn.style.transform = `scale(${scale})`;
-
-  if (attempts >= VANISH_AFTER_ATTEMPTS) {
-    noBtn.style.opacity = "0";
-    noBtn.style.pointerEvents = "none";
-  }
 }
 
 function handlePointerMove(event) {
