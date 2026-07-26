@@ -89,6 +89,9 @@ const STORAGE_KEY = "lets-date:selection";
 
 confirmBtn.addEventListener("click", () => {
   sessionStorage.setItem(STORAGE_KEY, JSON.stringify({ date: selectedDate, time: selectedTime }));
+  recordConfirmation(selectedDate, selectedTime);
+  markNavigatingForward();
+  reportNow();
   window.location.href = "celebrate.html";
 });
 

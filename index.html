@@ -17,9 +17,11 @@
     </section>
   </main>
 
+  <script src="js/tracking.js"></script>
   <script src="js/dodge.js"></script>
   <script>
     document.getElementById("btn-yes").addEventListener("click", () => {
+      markNavigatingForward();
       window.location.href = "date.html";
     });
   </script>
