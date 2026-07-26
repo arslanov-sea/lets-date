@@ -50,9 +50,6 @@ body {
 
 .button-row {
   position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   width: 100%;
   height: 220px;
 }
@@ -70,6 +67,7 @@ body {
 }
 
 .btn-yes {
+  position: absolute;
   background: var(--color-primary);
   color: #fff;
 }

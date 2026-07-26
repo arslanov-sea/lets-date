@@ -2,11 +2,12 @@ const noBtn = document.getElementById("btn-no");
 const dodgeContainer = document.querySelector(".button-row");
 const yesBtn = document.getElementById("btn-yes");
 
-const dodgePhrases = ["Нет", "Точно?", "Серьёзно?", "Не сюда!", "А если да?", "Почти поймал(а)"];
+const dodgePhrases = ["Нет", "Точно?", "Серьёзно?", "Не сюда!", "А если да?", "Почти поймала"];
 const DODGE_RADIUS = 90;
 const RETRIGGER_DELAY_MS = 250;
 const CORNER_MARGIN = 12;
 const CORNER_JITTER = 16;
+const BUTTON_GAP = 16;
 
 let lastEffectIndex = -1;
 let isDodging = false;
@@ -16,16 +17,22 @@ function setNoButtonPosition(left, top) {
   noBtn.style.top = `${top}px`;
 }
 
-function initNoButtonPosition() {
+function initButtonPositions() {
   const containerRect = dodgeContainer.getBoundingClientRect();
   const yesRect = yesBtn.getBoundingClientRect();
-  const btnRect = noBtn.getBoundingClientRect();
+  const noRect = noBtn.getBoundingClientRect();
 
-  const left = yesRect.right - containerRect.left + 16;
-  const top = yesRect.top - containerRect.top + (yesRect.height - btnRect.height) / 2;
-  const maxLeft = containerRect.width - btnRect.width;
+  const pairWidth = yesRect.width + BUTTON_GAP + noRect.width;
+  const pairLeft = (containerRect.width - pairWidth) / 2;
+  const centerTop = (containerRect.height - yesRect.height) / 2;
 
-  setNoButtonPosition(Math.min(left, maxLeft), Math.max(top, 0));
+  yesBtn.style.left = `${pairLeft}px`;
+  yesBtn.style.top = `${centerTop}px`;
+
+  setNoButtonPosition(
+    pairLeft + yesRect.width + BUTTON_GAP,
+    (containerRect.height - noRect.height) / 2
+  );
 }
 
 // The button-row is tall enough that a corner-anchored position always sits
@@ -117,7 +124,7 @@ function handleTouchStart(event) {
   triggerDodge();
 }
 
-initNoButtonPosition();
-window.addEventListener("resize", initNoButtonPosition);
+initButtonPositions();
+window.addEventListener("resize", initButtonPositions);
 dodgeContainer.addEventListener("pointermove", handlePointerMove);
 noBtn.addEventListener("touchstart", handleTouchStart, { passive: false });
