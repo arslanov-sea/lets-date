@@ -1,10 +1,12 @@
 const noBtn = document.getElementById("btn-no");
-const dodgeContainer = document.querySelector("#screen-ask .button-row");
+const dodgeContainer = document.querySelector(".button-row");
 const yesBtn = document.getElementById("btn-yes");
 
 const dodgePhrases = ["Нет", "Точно?", "Серьёзно?", "Не сюда!", "А если да?", "Почти поймал(а)"];
 const DODGE_RADIUS = 90;
 const RETRIGGER_DELAY_MS = 250;
+const CORNER_MARGIN = 12;
+const CORNER_JITTER = 16;
 
 let lastEffectIndex = -1;
 let isDodging = false;
@@ -16,39 +18,41 @@ function setNoButtonPosition(left, top) {
 
 function initNoButtonPosition() {
   const containerRect = dodgeContainer.getBoundingClientRect();
+  const yesRect = yesBtn.getBoundingClientRect();
   const btnRect = noBtn.getBoundingClientRect();
-  noBtn.style.position = "absolute";
-  noBtn.style.margin = "0";
-  setNoButtonPosition(btnRect.left - containerRect.left, btnRect.top - containerRect.top);
+
+  const left = yesRect.right - containerRect.left + 16;
+  const top = yesRect.top - containerRect.top + (yesRect.height - btnRect.height) / 2;
+  const maxLeft = containerRect.width - btnRect.width;
+
+  setNoButtonPosition(Math.min(left, maxLeft), Math.max(top, 0));
 }
 
+// The button-row is tall enough that a corner-anchored position always sits
+// well above or below the vertically-centered "yes" button, so no explicit
+// overlap check against it is needed.
 function pickRandomPosition() {
   const containerRect = dodgeContainer.getBoundingClientRect();
   const btnRect = noBtn.getBoundingClientRect();
-  const yesRect = yesBtn.getBoundingClientRect();
 
-  const maxLeft = Math.max(containerRect.width - btnRect.width, 0);
-  const maxTop = Math.max(containerRect.height - btnRect.height, 0);
-  const yesLeftRel = yesRect.left - containerRect.left;
-  const yesTopRel = yesRect.top - containerRect.top;
+  const maxLeft = containerRect.width - btnRect.width;
+  const maxTop = containerRect.height - btnRect.height;
 
-  let left = 0;
-  let top = 0;
-  let attempts = 0;
-  const minDistanceX = btnRect.width * 1.2;
-  const minDistanceY = btnRect.height * 1.2;
+  const corners = [
+    { left: CORNER_MARGIN, top: CORNER_MARGIN },
+    { left: maxLeft - CORNER_MARGIN, top: CORNER_MARGIN },
+    { left: CORNER_MARGIN, top: maxTop - CORNER_MARGIN },
+    { left: maxLeft - CORNER_MARGIN, top: maxTop - CORNER_MARGIN },
+  ];
 
-  do {
-    left = Math.random() * maxLeft;
-    top = Math.random() * maxTop;
-    attempts += 1;
-  } while (
-    attempts < 12 &&
-    Math.abs(left - yesLeftRel) < minDistanceX &&
-    Math.abs(top - yesTopRel) < minDistanceY
-  );
+  const corner = corners[Math.floor(Math.random() * corners.length)];
+  const jitterX = (Math.random() - 0.5) * CORNER_JITTER;
+  const jitterY = (Math.random() - 0.5) * CORNER_JITTER;
 
-  return { left, top };
+  return {
+    left: Math.min(Math.max(corner.left + jitterX, 0), maxLeft),
+    top: Math.min(Math.max(corner.top + jitterY, 0), maxTop),
+  };
 }
 
 function dodgeTeleport() {

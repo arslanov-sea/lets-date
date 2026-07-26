@@ -25,6 +25,7 @@ body {
 
 .app {
   min-height: 100vh;
+  min-height: 100dvh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -50,11 +51,10 @@ body {
 .button-row {
   position: relative;
   display: flex;
-  gap: 16px;
   justify-content: center;
   align-items: center;
   width: 100%;
-  min-height: 160px;
+  height: 220px;
 }
 
 .btn {
@@ -64,6 +64,8 @@ body {
   font-size: 1.1rem;
   font-weight: 600;
   cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
   transition: transform 0.15s ease, background-color 0.15s ease;
 }
 
@@ -78,11 +80,13 @@ body {
 }
 
 .btn-no {
+  position: absolute;
   background: var(--color-surface);
   color: var(--color-text);
   border: 2px solid var(--color-border);
-  transition: left 0.2s ease, top 0.2s ease, transform 0.2s ease;
+  user-select: none;
   white-space: nowrap;
+  transition: left 0.2s ease, top 0.2s ease, transform 0.2s ease;
 }
 
 .btn-no.wiggle {
@@ -152,5 +156,6 @@ body {
   inset: 0;
   width: 100vw;
   height: 100vh;
+  height: 100dvh;
   pointer-events: none;
 }
